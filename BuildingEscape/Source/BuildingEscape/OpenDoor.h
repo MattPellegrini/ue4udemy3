@@ -27,5 +27,8 @@ private:
     
     UPROPERTY(EditAnywhere)
     ATriggerVolume* PressurePlate;
-	
+    
+    AActor* ActorThatOpens; //Remember pawn inherits from Actor
+    
+    void OpenDoor();
 };
