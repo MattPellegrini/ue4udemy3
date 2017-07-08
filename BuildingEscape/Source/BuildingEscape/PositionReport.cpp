@@ -2,6 +2,7 @@
 
 #include "BuildingEscape.h"
 #include "PositionReport.h"
+#define OUT
 
 
 // Sets default values for this component's properties
@@ -32,6 +33,5 @@ void UPositionReport::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	// ...
 }
 
