@@ -25,5 +25,17 @@ public:
 private:
     float Reach;
     UPhysicsHandleComponent* PhysicsHandle = nullptr;
+    UInputComponent* InputComponent = nullptr;
+    
+    //RayCast and grab what is in reach.
+    void Grab();
+    
+    //Release the object
+    void Release();
+    
+    void SetupPhysicsHandleComponent();
+    void SetupInputComponent();
+    
+    FHitResult GetFirstPhysicsBodyInReach() const;
     
 };
