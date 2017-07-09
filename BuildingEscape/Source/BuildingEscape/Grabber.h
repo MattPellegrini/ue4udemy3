@@ -38,4 +38,8 @@ private:
     
     FHitResult GetFirstPhysicsBodyInReach() const;
     
+    FVector GetReachLineStart() const;
+    
+    FVector GetReachLineEnd() const;
+    
 };
