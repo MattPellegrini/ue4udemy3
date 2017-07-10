@@ -38,9 +38,13 @@ void UGrabber::SetupInputComponent()
 {
     /// Look for the Input Component
     InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
-    if (!InputComponent) UE_LOG(LogTemp, Error, TEXT("%s has no Input Component!"), *GetOwner()->GetName());
-    InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
-    InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
+    if (!InputComponent)
+    {
+        UE_LOG(LogTemp, Error, TEXT("%s has no Input Component!"), *GetOwner()->GetName());
+    }else{
+        InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+        InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
+    }
 }
 
 
@@ -50,7 +54,7 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
     
     /// If the physics handle is attached, move the object we are holding
-    if(PhysicsHandle->GrabbedComponent)
+    if(PhysicsHandle && PhysicsHandle->GrabbedComponent)
     {
         FVector ReachLineEnd = GetReachLineEnd();
         
@@ -66,7 +70,7 @@ void UGrabber::Grab(){
     auto ActorHit = HitResult.GetActor();
     
     /// If we hit something, attach a physics handle
-    if(ActorHit){
+    if(PhysicsHandle && ActorHit){
         PhysicsHandle->GrabComponent(
             ComponentToGrab,
             NAME_None,
@@ -78,7 +82,10 @@ void UGrabber::Grab(){
 
 void UGrabber::Release(){
     UE_LOG(LogTemp, Warning, TEXT("Grab key released!"));
-    PhysicsHandle->ReleaseComponent();
+    if(PhysicsHandle)
+    {
+        PhysicsHandle->ReleaseComponent();
+    }
 }
 
 FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
