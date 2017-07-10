@@ -23,11 +23,15 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
     Owner = GetOwner();
+    if(!PressurePlate){
+        UE_LOG(LogTemp, Error, TEXT("%s has no pressure plate component!"), *(GetOwner()->GetName()));
+    }
 }
 
 void UOpenDoor::OpenDoor()
 {
-    Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
+    // Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
+    OnOpenRequest.Broadcast();
 }
 
 void UOpenDoor::CloseDoor()
