@@ -34,8 +34,11 @@ private:
     float LastDoorOpenSeconds;
     
     AActor* Owner;
-    AActor* ActorThatOpens; //Remember pawn inherits from Actor
     
     void OpenDoor();
     void CloseDoor();
+    
+    float GetTotalMassOnPressurePlate() const;
+    
+    float TriggerMass = 35.0f;
 };
